@@ -8,14 +8,20 @@ from pathlib import Path
 from tqdm.auto import tqdm
 
 # Brain data, fMRI
-img = nibabel.load('./brain-f.nii')
+img = nibabel.load('./data/brain-f.nii')
 data = img.get_fdata()
 print(data.shape)
 
 # Brain data, T1
-# img = nibabel.load('./brain-T1.mgz')
+# img = nibabel.load('./data/brain-T1.mgz')
 # data = img.get_fdata()
 # print(data.shape)
+
+# Brain data, T1
+# img = nibabel.load('./data/me.nii')
+# data = img.get_fdata()
+# print(data.shape)
+
 
 # Head data
 # data_folder = Path(f'D:\\郭小龙\\口腔CT数据\\CBCT数据1, FOV 直径15cm乘以高度12cm，Voxel 0.3mm')
@@ -33,8 +39,16 @@ grid.point_data["values"] = data.flatten(order="F")
 
 # 创建绘图器并添加体积
 plotter = pv.Plotter(line_smoothing=True)
+
+# Gray and inside
 # plotter.add_volume(grid, cmap="gray", opacity="sigmoid")
+
+# Plasma and inside
 plotter.add_volume(grid, cmap="plasma", opacity="sigmoid")
+
+# Gray and outside
+# plotter.add_volume(grid, cmap="gray", opacity="linear")
+# plotter.add_volume(grid, cmap="Reds", opacity="linear")
 
 # 显示结果
 plotter.show()
